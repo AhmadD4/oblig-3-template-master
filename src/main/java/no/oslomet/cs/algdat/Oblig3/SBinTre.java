@@ -120,7 +120,21 @@ public class SBinTre<T> {
     }
 
     public int antall(T verdi) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        if (inneholder(verdi)) {//sjekker om verdi er i treet først...
+            Node<T> p = rot; //p som passerer alle noder i treet...
+            int antall = 0; //antall verdi...
+
+            while (p != null) {
+                int cmp = comp.compare(verdi, p.verdi);//bruker komperatoren...
+                if (cmp < 0) p = p.venstre;
+                else p = p.høyre;
+                if (cmp == 0) {
+                    antall++;
+                }
+                }
+            return antall;
+            }
+        else return 0;
     }
 
     public void nullstill() {
