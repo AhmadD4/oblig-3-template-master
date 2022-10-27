@@ -151,7 +151,12 @@ public class SBinTre<T> {
     }
 
     public int fjernAlle(T verdi) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        if (tom()) return 0;//i tilfelle treet er tom...
+        int antall = 0;//antall variabel...
+        while(fjern(verdi)){//Her skal verdien fjernes selv om den er gjenatatt..
+            antall ++;
+        }
+        return antall;
     }
 
     public int antall(T verdi) {
@@ -179,7 +184,7 @@ public class SBinTre<T> {
     private static <T> Node<T> førstePostorden(Node<T> p) {
         Objects.requireNonNull(p);//sjekker p ikke er null...
 
-       // Node<T> p = rot;
+       //Node<T> p = rot;
         while (true)
         {
             if (p.venstre != null) p = p.venstre;
