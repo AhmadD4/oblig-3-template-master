@@ -239,13 +239,59 @@ public class SBinTre<T> {
             oppgave.utførOppgave(p.verdi); //utfør oppgaven for hvert steg...
         }
     }
+     public ArrayList<T> serialize() {
+        //throw new UnsupportedOperationException("Ikke kodet ennå!");
 
-    public ArrayList<T> serialize() {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+
+        Queue<Node<T>> queBeholder = new LinkedList<Node<T>>();
+        ArrayList<T> listeElementer = new ArrayList<>();
+
+
+        queBeholder.add(rot);
+
+        while (queBeholder.size()!=0) {
+
+            Node<T> forsteNod = queBeholder.remove();
+
+            listeElementer.add(forsteNod.verdi);
+
+            if (forsteNod.venstre != null) {
+                queBeholder.add(forsteNod.venstre);
+            }
+            if (forsteNod.høyre != null) {
+                queBeholder.add(forsteNod.høyre);
+            }
+        }
+
+        return listeElementer;
     }
 
     static <K> SBinTre<K> deserialize(ArrayList<K> data, Comparator<? super K> c) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        //throw new UnsupportedOperationException("Ikke kodet ennå!");
+
+        SBinTre<K> treStack = new SBinTre<>(c);
+
+        for (K elementer : data) {
+
+            treStack.leggInn(elementer);
+        }
+
+        return treStack;
+    }
+
+
+    public String toStringPostOrder() {
+        if (tom()) return "[]";
+
+        StringJoiner s = new StringJoiner(", ", "[", "]");
+
+        Node<T> p = førstePostorden(rot); // går til den første i postorden
+        while (p != null) {
+            s.add(p.verdi.toString());
+            p = nestePostorden(p); //nestePostOrden
+        }
+
+        return s.toString();
     }
 
 
